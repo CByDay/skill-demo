@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
         @ExceptionHandler(参数) 参数是某个异常类的class，代表这个方法专门处理该类异常，比如：ExceptionHandler(NumberFormatException.class)
      */
     @ExceptionHandler(Exception.class)
-    public RespBean ExceptionHandler(Exception e) {
+    public RespBean exceptionHandler(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException exception = (GlobalException) e;
             return RespBean.error(exception.getRespBeanEnum());

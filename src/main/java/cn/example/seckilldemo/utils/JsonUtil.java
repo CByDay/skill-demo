@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -17,6 +18,11 @@ import java.util.List;
  */
 public class JsonUtil {
     private static ObjectMapper objectMapper = new ObjectMapper();
+
+    private JsonUtil() {
+        throw new IllegalStateException("JsonUtil class");
+    }
+
 
     /**
      * 将对象转换成json字符串
@@ -41,7 +47,7 @@ public class JsonUtil {
      */
     public static <T> T jsonStr2Object(String jsonStr, Class<T> clazz) {
         try {
-            return objectMapper.readValue(jsonStr.getBytes("UTF-8"), clazz);
+            return objectMapper.readValue(jsonStr.getBytes(StandardCharsets.UTF_8), clazz);
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {

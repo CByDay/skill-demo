@@ -68,7 +68,7 @@ public class GoodsController {
             valueOperations.set("goodsList", html, 60, TimeUnit.SECONDS);
         }
 
-        return null;
+        return html;
     }
 
     /**

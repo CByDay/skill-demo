@@ -14,15 +14,22 @@ import java.util.regex.Pattern;
  */
 public class ValidatorUtil {
 
+    private ValidatorUtil() {
+        throw new IllegalStateException("ValidatorUtil class");
+
+    }
+
+
     private static final Pattern mobile_patten = Pattern.compile("[1]([3-9])[0-9]{9}$");
 
     /**
      * 手机号码校验
+     *
+     * @param mobile
+     * @return boolean
      * @author LC
      * @operation add
      * @date 2:19 下午 2022/3/2
-     * @param mobile
-     * @return boolean
      **/
     public static boolean isMobile(String mobile) {
         if (StringUtils.isEmpty(mobile)) {

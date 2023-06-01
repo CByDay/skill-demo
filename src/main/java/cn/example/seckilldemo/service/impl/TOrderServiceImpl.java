@@ -1,11 +1,9 @@
 package cn.example.seckilldemo.service.impl;
 
-import cn.example.seckilldemo.entity.TOrder;
-import cn.example.seckilldemo.entity.TSeckillGoods;
-import cn.example.seckilldemo.entity.TSeckillOrder;
-import cn.example.seckilldemo.entity.TUser;
+import cn.example.seckilldemo.entity.*;
 import cn.example.seckilldemo.exception.GlobalException;
 import cn.example.seckilldemo.mapper.TOrderMapper;
+import cn.example.seckilldemo.rabbitmq.MQSender;
 import cn.example.seckilldemo.service.ITGoodsService;
 import cn.example.seckilldemo.service.ITOrderService;
 import cn.example.seckilldemo.service.ITSeckillGoodsService;
@@ -52,6 +50,9 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
     private ITGoodsService itGoodsService;
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private MQSender mqSender;
 
     @Transactional
     @Override
@@ -145,5 +146,34 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         String redisCaptcha = (String) redisTemplate.opsForValue()
                 .get("captcha:" + user.getId() + ":" + goodsId);
         return captcha.equals(redisCaptcha);
+    }
+
+    /**
+     * 功能描述: 下单操作
+     * mq超时
+     * @Date: 2023/5/31
+     * @param user:
+     * @param tGoods:
+     * @return boolean
+     **/
+    @Override
+    public boolean payGoods(TUser user, TGoods tGoods) {
+        // 1. 先把当前下单的信息存起来
+        //生成订单
+        TOrder order = new TOrder();
+        order.setUserId(user.getId());
+        order.setGoodsId(tGoods.getId());
+        order.setDeliveryAddrId(0L);
+        order.setGoodsName(tGoods.getGoodsName());
+        order.setGoodsCount(1);
+        order.setGoodsPrice(tGoods.getGoodsPrice());
+        order.setOrderChannel(1);
+        order.setStatus(0);
+        order.setCreateDate(new Date());
+        tOrderMapper.insert(order);
+
+        mqSender.sengDelayMessage(order);
+
+        return false;
     }
 }

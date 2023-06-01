@@ -1,5 +1,7 @@
 package cn.example.seckilldemo.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,10 @@ import java.net.URLEncoder;
  * @ClassName: CookieUtil
  */
 public final class CookieUtil {
+
+    private CookieUtil() {
+        throw new IllegalStateException("CookieUtil class");
+    }
 
     /**
      * 得到Cookie的值, 不编码
@@ -149,7 +155,6 @@ public final class CookieUtil {
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
                 String domainName = getDomainName(request);
-                System.out.println(domainName);
                 if (!"localhost".equals(domainName)) {
                     cookie.setDomain(domainName);
                 }
@@ -180,7 +185,6 @@ public final class CookieUtil {
             }
             if (null != request) {// 设置域名的cookie
                 String domainName = getDomainName(request);
-                System.out.println(domainName);
                 if (!"localhost".equals(domainName)) {
                     cookie.setDomain(domainName);
                 }
@@ -231,7 +235,7 @@ public final class CookieUtil {
             }
         }
 
-        if (domainName != null && domainName.indexOf(":") > 0) {
+        if ( !StringUtils.isEmpty(domainName) && domainName.indexOf(":") > -1) {
             String[] ary = domainName.split("\\:");
             domainName = ary[0];
         }

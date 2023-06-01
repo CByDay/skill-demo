@@ -5,7 +5,6 @@ import cn.example.seckilldemo.entity.TOrder;
 import cn.example.seckilldemo.entity.TSeckillOrder;
 import cn.example.seckilldemo.entity.TUser;
 import cn.example.seckilldemo.exception.GlobalException;
-//import cn.example.seckilldemo.rabbitmq.MQSender;
 import cn.example.seckilldemo.mapper.TUserMapper;
 import cn.example.seckilldemo.rabbitmq.MQSender;
 import cn.example.seckilldemo.service.ITGoodsService;
@@ -126,7 +125,7 @@ public class SeKillController implements InitializingBean {
 //    @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
     @RequestMapping(value = "/{path}/doSeckill", method = RequestMethod.POST)
     @ResponseBody
-    public RespBean doSeckill(TUser user, Long goodsId,@PathVariable String path) {
+    public RespBean doSeckill(TUser user, Long goodsId, @PathVariable String path) {
         if (user == null) {
             return RespBean.error(RespBeanEnum.SESSION_ERROR);
         }
@@ -146,7 +145,7 @@ public class SeKillController implements InitializingBean {
 //        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
         Long stock = (Long) redisTemplate.execute(redisScript, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
         if (stock < 0) {
-            EmptyStockMap.put(goodsId,true);
+            EmptyStockMap.put(goodsId, true);
             valueOperations.increment("seckillGoods:" + goodsId);   // 防止为负数（
             RespBean.error(RespBeanEnum.EMPTY_STOCK);
         }
@@ -202,7 +201,6 @@ public class SeKillController implements InitializingBean {
         ValueOperations valueOperations = redisTemplate.opsForValue();
         // 限制访问次数，5秒内访问5次
         String uri = request.getRequestURI(); // 请求地址
-        captcha = "0";
         Integer count = (Integer) valueOperations.get(uri + ":" + tuser.getId());
         if (count == null) { // 为空说明时第一次请求
             valueOperations.set(uri + ":" + tuser.getId(), 1, 5, TimeUnit.SECONDS);

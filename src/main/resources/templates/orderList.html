@@ -17,26 +17,33 @@
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">秒杀商品列表</div>
-    <table class="table" id="goodslist">
+    <p th:text="'hello:'+${user.nickname}"></p>
+    <table class="table" id="orderList">
         <tr>
             <td>商品名称</td>
-            <td>商品图片</td>
+<!--            <td>商品图片</td>-->
             <td>商品原价</td>
-            <td>秒杀价</td>
-            <td>库存数量</td>
-            <td>秒杀详情</td>
+<!--            <td>秒杀价</td>-->
+<!--            <td>库存数量</td>-->
+            <td>是否付款</td>
             <td>下单</td>
         </tr>
-        <tr th:each="goods,goodsStat : ${goodsList}">
-            <td th:text="${goods.goodsName}"></td>
-            <td><img th:src="@{${goods.goodsImg}}" width="100" height="100"/></td>
-            <td th:text="${goods.goodsPrice}"></td>
-            <td th:text="${goods.seckillPrice}"></td>
-            <td th:text="${goods.stockCount}"></td>
-            <!--            <td><a th:href="'/goods/toDetail/'+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>-->
-            <td><a th:href="'/goodsDetail.html?goodsId='+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>
+        <tr th:each="order : ${orderList}">
+            <td th:text="${order.goodsName}"></td>
+<!--            <td><img th:src="@{${goods.goodsImg}}" width="100" height="100"/></td>-->
+            <td th:text="${order.goodsPrice}"></td>
+<!--            <td th:text="${goods.seckillPrice}"></td>-->
             <td>
-                <button class="btn btn-primary" type="submit" id="payButton" th:onclick="payGoods([[${goods.id}]]);">获得名字</button>
+                <div th:switch="${order.status}">
+                    <span th:case="0">未支付</span>
+                    <span th:case="1">已完成</span>
+                    <span th:case="4">订单超时已取消</span>
+                </div>
+            </td>
+            <!--            <td><a th:href="'/goods/toDetail/'+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>-->
+<!--            <td><a th:href="'/goodsDetail.html?goodsId='+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>-->
+            <td>
+                <button class="btn btn-primary" type="submit" id="payButton" th:onclick="payMoney([[${order.id}]]);">付款</button>
             </td>
         </tr>
     </table>
@@ -45,17 +52,15 @@
 </html>
 <script>
     // 下单
-    function payGoods(goodsId) {
+    function payMoney(orderId) {
         $.ajax({
-            url: "/order/payGoods",
+            url: "/order/payMoney",
             type: "POST",
-            data: "goodsId=" + goodsId,
+            data: "orderId=" + orderId,
             dataType: 'text', //需要的是text格式
             success: function (data) {
+                console.log(data)
                 layer.msg("成功");
-                console.log(data);
-                document.cookie = "userTicket=" + data.object;
-                window.location.href = "/order/toList";
             },
             error: function () {
                 layer.msg("客户端请求错误");

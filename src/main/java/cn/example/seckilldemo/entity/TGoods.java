@@ -50,6 +50,10 @@ public class TGoods implements Serializable {
     @ApiModelProperty("商品库存，-1表示没有限制")
     private Integer goodsStock;
 
+    /** 版本 **/
+    @ApiModelProperty("版本")
+    private String version;
+
 
     public Long getId() {
         return id;
@@ -107,16 +111,25 @@ public class TGoods implements Serializable {
         this.goodsStock = goodsStock;
     }
 
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "TGoods{" +
-        "id=" + id +
-        ", goodsName=" + goodsName +
-        ", goodsTitle=" + goodsTitle +
-        ", goodsImg=" + goodsImg +
-        ", goodsDetail=" + goodsDetail +
-        ", goodsPrice=" + goodsPrice +
-        ", goodsStock=" + goodsStock +
-        "}";
+                "id=" + id +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsTitle='" + goodsTitle + '\'' +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", goodsDetail='" + goodsDetail + '\'' +
+                ", goodsPrice=" + goodsPrice +
+                ", goodsStock=" + goodsStock +
+                ", version='" + version + '\'' +
+                '}';
     }
 }

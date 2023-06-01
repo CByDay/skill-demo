@@ -15,6 +15,7 @@
         <result column="status" property="status" />
         <result column="create_date" property="createDate" />
         <result column="pay_date" property="payDate" />
+        <result column="version" property="version" />
     </resultMap>
 
 </mapper>

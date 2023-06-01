@@ -1,5 +1,6 @@
 package cn.example.seckilldemo.service;
 
+import cn.example.seckilldemo.entity.TGoods;
 import cn.example.seckilldemo.entity.TOrder;
 import cn.example.seckilldemo.entity.TUser;
 import cn.example.seckilldemo.vo.GoodsVo;
@@ -64,13 +65,24 @@ public interface ITOrderService extends IService<TOrder> {
 
     /**
      * 校验验证码
-     * @author LiChao
-     * @operation add
-     * @date 3:52 下午 2022/3/9
+     *
      * @param tuser
      * @param goodsId
      * @param captcha
      * @return boolean
+     * @author LiChao
+     * @operation add
+     * @date 3:52 下午 2022/3/9
      **/
     boolean checkCaptcha(TUser tuser, Long goodsId, String captcha);
+
+    /**
+     * 功能描述: 商品下单
+     *
+     * @param tuser:
+     * @param goodsId:
+     * @return boolean
+     * @Date: 2023/5/31
+     **/
+    boolean payGoods(TUser tuser, TGoods tGoods);
 }
