@@ -38,6 +38,7 @@ spring:
   thymeleaf:
     cache: false
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jk_manage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
@@ -59,6 +60,9 @@ spring:
       connection-timeout: 3000
       # 测试连接是否可用的查询语句
       connection-test-query: SELECT 1
+      # 控制默认情况下从池获得的连接是否处于只读模式
+      read-only: false
+
 
   #  本地redis
   redis:

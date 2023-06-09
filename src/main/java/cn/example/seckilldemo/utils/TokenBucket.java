@@ -196,8 +196,8 @@ public class TokenBucket {
     private static void tokenTest() throws InterruptedException, IOException {
         TokenBucket tokenBucket = TokenBucket.newBuilder().avgFlowRate(512).maxFlowRate(1024).build();
 
-        BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream("D:/ds_test")));
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("")));
+//                new OutputStreamWriter(new FileOutputStream("D:/ds_test")));
         String data = "xxxx";// 四个字节
         for (int i = 1; i <= 1000; i++) {
 

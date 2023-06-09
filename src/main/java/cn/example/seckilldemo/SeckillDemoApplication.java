@@ -3,6 +3,7 @@ package cn.example.seckilldemo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -13,6 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 //@MapperScan("cn.example.seckilldemo.mapper")
 //@EnableSwagger2
+@EnableScheduling   // @EnableScheduling 在配置类上使用，开启计划任务的支持（类上）
 public class SeckillDemoApplication {
 
     public static void main(String[] args) {
