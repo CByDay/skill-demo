@@ -19,21 +19,25 @@ import java.lang.reflect.Method;
 @PersistJobDataAfterExecution//告诉Quartz不要并发地执行同一个JobDetail实例
 public class ScheduleJob implements Job {
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
-        Schedule schedule = (Schedule) context.getMergedJobDataMap().get(context.getJobDetail().getKey().getName());
-        if (schedule == null) {
-            log.warn("警告！没有获取到定时任务信息，请立即检查！[jobDetail={}]", context.getJobDetail());
-            return;
-        }
-        try {
-            log.info("定时任务执行开始{}",context.getJobDetail());
-            Object object = SpringUtil.getBean(Class.forName(schedule.getClassName()));
-            System.out.println("object: "+object);
-            Method method = object.getClass().getMethod(schedule.getMethodName());
-            method.invoke(object);
-            log.info("定时任务执行完成{}",context.getJobDetail());
-        } catch (Exception e) {
-            log.error("定时任务出现异常！[class={}, method={} : {}]", schedule.getClassName(), schedule.getMethodName(),e);
-        }
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+
     }
+//    @Override
+//    public void execute(JobExecutionContext context) throws JobExecutionException {
+//        Schedule schedule = (Schedule) context.getMergedJobDataMap().get(context.getJobDetail().getKey().getName());
+//        if (schedule == null) {
+//            log.warn("警告！没有获取到定时任务信息，请立即检查！[jobDetail={}]", context.getJobDetail());
+//            return;
+//        }
+//        try {
+//            log.info("定时任务执行开始{}",context.getJobDetail());
+//            Object object = SpringUtil.getBean(Class.forName(schedule.getClassName()));
+//            System.out.println("object: "+object);
+//            Method method = object.getClass().getMethod(schedule.getMethodName());
+//            method.invoke(object);
+//            log.info("定时任务执行完成{}",context.getJobDetail());
+//        } catch (Exception e) {
+//            log.error("定时任务出现异常！[class={}, method={} : {}]", schedule.getClassName(), schedule.getMethodName(),e);
+//        }
+//    }
 }

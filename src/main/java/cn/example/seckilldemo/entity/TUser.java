@@ -1,5 +1,6 @@
 package cn.example.seckilldemo.entity;
 
+import cn.example.seckilldemo.zigingyizhujie.MyAnnotation;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,6 +24,7 @@ public class TUser implements Serializable {
     @ApiModelProperty("用户ID,手机号码")
     private Long id;
 
+    @MyAnnotation
     private String nickname;
 
     /** MD5(MD5(pass明文+固定salt)+salt) **/

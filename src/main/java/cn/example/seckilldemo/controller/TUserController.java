@@ -7,9 +7,12 @@ import cn.example.seckilldemo.utils.RespBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,6 +27,8 @@ import java.util.List;
  * @author LiChao
  * @since 2022-03-02
  */
+@Slf4j
+
 @RestController
 @RequestMapping("/user")
 @Api(value = "用户表", tags = "用户表")
@@ -43,13 +48,24 @@ public class TUserController {
         return RespBean.success(user);
     }
 
+    @RequestMapping(value = "/info1", method = RequestMethod.POST)
+    @ApiOperation("自定义注解测试")
+    public String info1(@Valid @RequestBody TUser user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            // 获取验证失败的信息,可在验证注解的message()中设置
+            return bindingResult.getAllErrors()
+                    .get(0).getDefaultMessage();
+        }
+        log.info("接收到参数:{}", user);
+        return "接收成功了!";
+    }
 
     /**
-     *功能描述: 测试mq
+     * 功能描述: 测试mq
      *
-     *@Date 2023-05-28
-     *@Return void
-    */
+     * @Date 2023-05-28
+     * @Return void
+     */
 //    @RequestMapping(value = "/mq", method = RequestMethod.GET)
 //    @ResponseBody
 //    public void mq() {
@@ -97,8 +113,6 @@ public class TUserController {
 //    public void header02() {
 //        mqSender.send06("Hello 02");
 //    }
-
-
     @GetMapping("/createuser")
     @ApiOperation("压测创建配置文件")
     public void CreateUser() throws IOException {

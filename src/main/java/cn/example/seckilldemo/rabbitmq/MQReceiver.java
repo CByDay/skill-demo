@@ -99,6 +99,7 @@ public class MQReceiver {
         //判断订单是否已超时,超时则更新订单状态
         //订单状态，0新建未支付，1已支付，2已发货，3已收货，4已退货，5已完成
         if (tOrder.getStatus() != 1) {
+            // 当前时间 减去 订单创建时间
             long validPay = System.currentTimeMillis() - tOrder.getCreateDate().getTime();
             log.info("相差时间：", validPay);
             if (1 * 1000 < validPay) {//判断当前是否还在1分钟以内，超过1分钟订单状态改变为超时
