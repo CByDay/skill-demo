@@ -13,6 +13,7 @@ import cn.example.seckilldemo.service.ITOrderService;
 import cn.example.seckilldemo.utils.JsonUtil;
 import cn.example.seckilldemo.vo.GoodsVo;
 import cn.example.seckilldemo.vo.SeckillMessage;
+import cn.hutool.core.date.DateTime;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -60,7 +61,8 @@ public class MQReceiver {
      **/
     @RabbitListener(queues = "seckillQueue")
     public void receive(String message) {
-        log.info("接收消息：" + message);
+        String time = new DateTime().toString("yyyy-MM-dd HH:mm:ss");
+        log.info("接收消息：" + message + "接收到的时间： " + time);
         SeckillMessage seckillMessage = JsonUtil.jsonStr2Object(message, SeckillMessage.class);
         Long goodsId = seckillMessage.getGoodsId();
         TUser user = seckillMessage.getTUser();
@@ -79,6 +81,7 @@ public class MQReceiver {
     }
 
     /**
+     * 核心接收
      * 功能描述: mq消费，判断订单是否付款（超时）
      *
      * @param message:
@@ -94,6 +97,7 @@ public class MQReceiver {
             key = MQConfig.ROUTING_KEY_ORDER  //这个值对应的就是x-dead-letter-routing-key
     ))
     public void receiveDelayMessage(String message) throws GlobalException {
+        String time = new DateTime().toString("yyyy-MM-dd HH:mm:ss");
         UpdateWrapper<TOrder> updateWrapper = new UpdateWrapper<>();
         TOrder tOrder = JSON.parseObject(message, TOrder.class);
         //判断订单是否已超时,超时则更新订单状态
@@ -101,15 +105,15 @@ public class MQReceiver {
         if (tOrder.getStatus() != 1) {
             // 当前时间 减去 订单创建时间
             long validPay = System.currentTimeMillis() - tOrder.getCreateDate().getTime();
-            log.info("相差时间：", validPay);
+            log.info("相差时间：{}", validPay);
             if (1 * 1000 < validPay) {//判断当前是否还在1分钟以内，超过1分钟订单状态改变为超时
                 tOrder.setStatus(4);
                 updateWrapper.eq("goods_id", tOrder.getGoodsId()).set("status", 4);
                 tOrderMapper.update(null, updateWrapper);
-                log.info("{} 订单{}未支付已超时", new Date());
+                log.info("订单未支付已超时{}", time);
             }
         } else {
-            log.info("{}订单没有超时", new Date());
+            log.info("订单没有超时{}", time);
 
         }
     }

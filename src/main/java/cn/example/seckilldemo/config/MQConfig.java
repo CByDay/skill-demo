@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 
 /**
- * @Description: 延时任务（订单超时）
+ * @Description: 延时任务（订单超时） 核心死信队列
  * @Author:
  * @Date: 2023-05-31
  */
@@ -34,7 +34,7 @@ public class MQConfig {
         params.put("x-dead-letter-exchange", EXCHANGE_DELAY_ORDER);
         //设置死信在转发时使用的路由key
         params.put("x-dead-letter-routing-key", ROUTING_KEY_ORDER);
-        return new Queue(QUEUE_DELAY_ORDER,true,false,false,params);
+        return new Queue(QUEUE_DELAY_ORDER,true,false,false, params);
     }
 
     //创建死信交换机(普通的交换机)

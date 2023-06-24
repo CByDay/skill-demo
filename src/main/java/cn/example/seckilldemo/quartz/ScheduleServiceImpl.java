@@ -249,7 +249,7 @@ public class ScheduleServiceImpl extends ServiceImpl<IScheduleMapper, Schedule> 
      * 增加任务
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class) // Transactional 默认的回滚是 RuntimeExceptioin 和 Error
     public void add(Schedule schedule) {
         dao.insert(schedule);
         //添加到任务列表

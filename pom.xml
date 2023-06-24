@@ -181,12 +181,26 @@
             <version>2.3.2</version>
         </dependency>
 
-        <!-- quartz 默认使用 c3p0 连接池-->
+<!--        注意 mapstruct 的版本-->
+<!--        版本太低会报错 org.mapstruct.ap.Internal.processor.DefaultVersionInformation.getLibraryName-->
         <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.5</version>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.3.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.3.Final</version>
+        </dependency>
+
+
+        <!-- quartz 默认使用 c3p0 连接池-->
+<!--        <dependency>-->
+<!--            <groupId>com.mchange</groupId>-->
+<!--            <artifactId>c3p0</artifactId>-->
+<!--            <version>0.9.5.5</version>-->
+<!--        </dependency>-->
 
         <!-- EXCEL 导入的 POI，如果 使用了 EasyExcel ，这些可以注释-->
         <!-- 03 xls 版本-->

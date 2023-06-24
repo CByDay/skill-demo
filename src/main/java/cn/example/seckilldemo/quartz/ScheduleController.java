@@ -1,5 +1,6 @@
 package cn.example.seckilldemo.quartz;
 
+import cn.example.seckilldemo.mapper.ScheduleConvert;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -33,8 +34,8 @@ public class ScheduleController {
         if(schedule==null){
             throw new CustomException("未查询到定时任务");
         }
-//        ScheduleVo scheduleVo = ScheduleConvert.INSTANCE.scheduleToScheduleVo(schedule);
-        return Result.createSuccess();
+        ScheduleVo scheduleVo = ScheduleConvert.INSTANCE.scheduleToScheduleVo(schedule);
+        return Result.createSuccess(scheduleVo);
     }
 
 
@@ -48,23 +49,22 @@ public class ScheduleController {
     @ApiOperation(value = "查询全部定时任务列表", notes = "查询全部定时任务列表")
     @GetMapping("/listAll")
     public Result<List<ScheduleVo>> listAll(ScheduleQueryBo scheduleQuery){
-//        return Result.createSuccess(ScheduleConvert.INSTANCE.scheduleListToScheduleVoList(scheduleService.listAll(scheduleQuery)));
-        return null;
+        return Result.createSuccess(ScheduleConvert.INSTANCE.scheduleListToScheduleVoList(scheduleService.listAll(scheduleQuery)));
     }
 
     @ApiOperation(value = "新增定时任务", notes = "新增定时任务")
     @PostMapping("/add")
     public Result<String> add(@RequestBody @Valid ScheduleAddBo scheduleAddBo){
-//        Schedule schedule = ScheduleConvert.INSTANCE.scheduleAddBoToSchedule(scheduleAddBo);
-//        scheduleService.add(schedule);
+        Schedule schedule = ScheduleConvert.INSTANCE.scheduleAddBoToSchedule(scheduleAddBo);
+        scheduleService.add(schedule);
         return Result.createSuccess();
     }
 
     @ApiOperation(value = "修改定时任务", notes = "修改定时任务")
     @PostMapping("/edit")
     public Result<String> edit(@RequestBody @Valid ScheduleEditBo scheduleEditBo){
-//        Schedule schedule = ScheduleConvert.INSTANCE.scheduleEditBoToSchedule(scheduleEditBo);
-//        scheduleService.edit(schedule);
+        Schedule schedule = ScheduleConvert.INSTANCE.scheduleEditBoToSchedule(scheduleEditBo);
+        scheduleService.edit(schedule);
         return Result.createSuccess();
     }
 

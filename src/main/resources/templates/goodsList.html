@@ -36,7 +36,7 @@
             <!--            <td><a th:href="'/goods/toDetail/'+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>-->
             <td><a th:href="'/goodsDetail.html?goodsId='+${goods.id}"><span class="icon-list-alt"></span>详情信息</a></td>
             <td>
-                <button class="btn btn-primary" type="submit" id="payButton" th:onclick="payGoods([[${goods.id}]]);">获得名字</button>
+                <button class="btn btn-primary" type="submit" id="payButton" th:onclick="payGoods([[${goods.id}]]);">下单</button>
             </td>
         </tr>
     </table>
