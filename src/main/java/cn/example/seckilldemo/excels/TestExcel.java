@@ -2,11 +2,9 @@ package cn.example.seckilldemo.excels;
 
 import cn.example.seckilldemo.entity.DemoData;
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.util.MapUtils;
 import org.junit.Test;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * @Description:
@@ -32,6 +30,24 @@ public class TestExcel {
         fillData.setDoubleData(5.2);
         fillData.setCreatTime(new Date(System.currentTimeMillis()));
         EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFill(fillData);
+    }
+
+    @Test
+    public void testThread() {
+        final String[] str = {""};
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                str[0] = "测试数据";
+                System.out.println("使用匿名内部类，实例Runnable接口作为构造参数");
+            }
+        });
+        thread.start();
+
+
+        for (int i = 0; i < str.length; i++) {
+            System.out.println(str[i]);
+        }
     }
 
 }

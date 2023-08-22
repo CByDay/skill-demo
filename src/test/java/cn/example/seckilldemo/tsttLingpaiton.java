@@ -1,7 +1,10 @@
 package cn.example.seckilldemo;
 
-import cn.example.seckilldemo.utils.TokenBucket;
+import cn.example.seckilldemo.controller.zhujie.ReplaceParser;
+import cn.example.seckilldemo.controller.zhujie.UserListParam;
 import com.google.common.util.concurrent.RateLimiter;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +13,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.time.Instant;
 
 /**
  * @Description: 测试令牌桶
@@ -18,6 +20,7 @@ import java.time.Instant;
  * @Date: 2023-05-30
  */
 @SpringBootTest
+@Slf4j
 public class tsttLingpaiton {
 
     RateLimiter limiter = RateLimiter.create(5);
@@ -63,5 +66,18 @@ public class tsttLingpaiton {
     @Retention(RetentionPolicy.RUNTIME)
     @interface checkNum{
         int nums();
+    }
+
+    @Test
+    void params(){
+        UserListParam param = new UserListParam("  KKKKKKK@DSDSI.COM");
+        log.info(param.getUserId());
+        Object parseObject =new ReplaceParser().parse(param);
+        if(parseObject instanceof UserListParam){
+            UserListParam userListParam = (UserListParam) parseObject;
+            Assertions.assertNotNull(userListParam);
+            log.info("-----------------------------");
+            log.info(param.getUserId());
+        }
     }
 }

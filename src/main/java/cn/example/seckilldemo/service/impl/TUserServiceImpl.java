@@ -2,6 +2,7 @@ package cn.example.seckilldemo.service.impl;
 
 
 import cn.example.seckilldemo.entity.TUser;
+import cn.example.seckilldemo.enums.RespBeanEnum;
 import cn.example.seckilldemo.exception.GlobalException;
 import cn.example.seckilldemo.mapper.TUserMapper;
 import cn.example.seckilldemo.service.ITUserService;
@@ -10,9 +11,7 @@ import cn.example.seckilldemo.utils.MD5Util;
 import cn.example.seckilldemo.utils.RespBean;
 import cn.example.seckilldemo.utils.UUIDUtil;
 import cn.example.seckilldemo.vo.LoginVo;
-import cn.example.seckilldemo.enums.RespBeanEnum;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;

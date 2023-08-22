@@ -8,26 +8,20 @@ import cn.example.seckilldemo.mapper.TOrderMapper;
 import cn.example.seckilldemo.service.ITOrderService;
 import cn.example.seckilldemo.service.impl.TGoodsServiceImpl;
 import cn.example.seckilldemo.utils.RespBean;
-import cn.example.seckilldemo.vo.GoodsVo;
 import cn.example.seckilldemo.vo.OrderDeatilVo;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.context.WebContext;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:

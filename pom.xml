@@ -25,6 +25,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -181,8 +185,8 @@
             <version>2.3.2</version>
         </dependency>
 
-<!--        注意 mapstruct 的版本-->
-<!--        版本太低会报错 org.mapstruct.ap.Internal.processor.DefaultVersionInformation.getLibraryName-->
+        <!--        注意 mapstruct 的版本-->
+        <!--        版本太低会报错 org.mapstruct.ap.Internal.processor.DefaultVersionInformation.getLibraryName-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -196,26 +200,26 @@
 
 
         <!-- quartz 默认使用 c3p0 连接池-->
-<!--        <dependency>-->
-<!--            <groupId>com.mchange</groupId>-->
-<!--            <artifactId>c3p0</artifactId>-->
-<!--            <version>0.9.5.5</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.mchange</groupId>-->
+        <!--            <artifactId>c3p0</artifactId>-->
+        <!--            <version>0.9.5.5</version>-->
+        <!--        </dependency>-->
 
         <!-- EXCEL 导入的 POI，如果 使用了 EasyExcel ，这些可以注释-->
         <!-- 03 xls 版本-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi</artifactId>-->
-<!--            <version>3.9</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.poi</groupId>-->
+        <!--            <artifactId>poi</artifactId>-->
+        <!--            <version>3.9</version>-->
+        <!--        </dependency>-->
 
-<!--        &lt;!&ndash; 07 xlsx 版本&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi-ooxml</artifactId>-->
-<!--            <version>3.9</version>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash; 07 xlsx 版本&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.poi</groupId>-->
+        <!--            <artifactId>poi-ooxml</artifactId>-->
+        <!--            <version>3.9</version>-->
+        <!--        </dependency>-->
 
         <!-- 日期格式工具 -->
         <dependency>
@@ -237,6 +241,22 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+
+<!--        &lt;!&ndash;        注解&ndash;&gt;-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate.validator</groupId>-->
+<!--            <artifactId>hibernate-validator</artifactId>-->
+<!--            <version>8.0.0.Final</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+
 
     </dependencies>
 

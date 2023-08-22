@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,8 +23,16 @@ public class TUser implements Serializable {
 
     /** 用户ID,手机号码 **/
     @ApiModelProperty("用户ID,手机号码")
+    @NotNull
     private Long id;
 
+    /**
+     * 功能描述: 自定义注解
+     *
+     * @Date: 2023/8/20
+     * @param null:
+     * @return null
+     **/
     @MyAnnotation
     private String nickname;
 
@@ -31,6 +40,7 @@ public class TUser implements Serializable {
     @ApiModelProperty("MD5(MD5(pass明文+固定salt)+salt)")
     private String password;
 
+    @MyAnnotation
     private String salt;
 
     /** 头像 **/
